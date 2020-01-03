@@ -69,24 +69,148 @@ One note before you delve into your tasks: for each endpoint you are expected to
 REVIEW_COMMENT
 ```
 This README is missing documentation of your endpoints. Below is an example for your endpoint to get all categories. Please use it as a reference for creating your documentation and resubmit your code. 
+```
 
-Endpoints
+##Endpoints
 GET '/categories'
-GET ...
-POST ...
-DELETE ...
-
-GET '/categories'
-- Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
+- Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category.
 - Request Arguments: None
-- Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
-{'1' : "Science",
-'2' : "Art",
-'3' : "Geography",
-'4' : "History",
-'5' : "Entertainment",
-'6' : "Sports"}
+- Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs.
+``` 
+{
+  1 : "Science",
+  2 : "Art",
+  3 : "Geography",
+  4 : "History",
+  5 : "Entertainment",
+  6 : "Sports"
+}
+```
+GET '/questions?page={page_no}'
+- Fetches a dictionary of questions in which the keys are the ids and the values is the corresponding string of the question, answer, category, and difficulty in specified page with page_no.
+- Request Arguments: page(optional)
+- Returns: An object with success, questions, total_questions, and categories.
+```
+{
+  "success" : True,
+  "questions" : [
+    {
+      "id" : 2,
+      "question" : "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?",
+      "answer" : "Apollo 13",
+      "category" : 5,
+      "difficulty" : 4
+    },
+    ...
+  ],
+  "total_questions" : 19,
+  "categories" : [ "Science", "Art", "Geography", "History", "Entertainment", "Sports" ]
+} 
+```
+GET '/categories/{category_id}/questions'
+- Fetches a dictionary of questions in which the keys are the ids and the values is the corresponding string of the question, answer, category, and difficulty in category with category_id.
+- Request Arguments: None
+- Returns: An object with success, and questions.
+```
+{
+  "success" : True,
+  "questions" : [
+    {
+      "id" : 2,
+      "question" : "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?",
+      "answer" : "Apollo 13",
+      "category" : 5,
+      "difficulty" : 4
+    },
+    ...
+  ]
+} 
+```
+POST '/questions'
+- Creates a question.
+- Request Arguments: None
+- Request Body: An object with question, answer, category, and difficulty.
+```
+{
+  "question" : "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?",
+  "answer" : "Apollo 13",
+  "category" : 5,
+  "difficulty" : 4
+}
+```
+- Returns: An object with success, and created question id.
+```
+{
+  "success" : True,
+  "created" : 25
+}
+```
+POST '/questions'
+- Search questions.
+- Request Arguments: None
+- Request Body: An object with searchTerm.
+```
+{ "searchTerm": "title" }
+```
+- Returns: An object with success, and questions.
+```
+{
+  "success" : True,
+  "questions" : [
+    {
+      "id" : 2,
+      "question" : "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?",
+      "answer" : "Apollo 13",
+      "category" : 5,
+      "difficulty" : 4
+    },
+    ...
+  ]
+}
+```
+POST '/quizzes'
+- Fetches a dictionary of question in which the keys are the ids and the values is the corresponding string of the question, answer, category, and difficulty in specified category.
+- Request Arguments: None
+- Returns: An object with success, and question.
+```
+{
+  "success" : True,
+  "quiestion" :
+    {
+      "id" : 2,
+      "question" : "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?",
+      "answer" : "Apollo 13",
+      "category" : 5,
+      "difficulty" : 4
+    }
+}
+```
+DELETE '/questions/{question_id}'
+- Delete a question with question_id.
+- Request Arguments: None
+- Returns: An object with success, and deleted question id.
+```
+{
+  "success" : True,
+  "deleted" : 1
+}
+```
 
+##Error Handling
+Errors are returned as JSON objects in the following format:
+```
+{
+  "success" : False
+  "error" : 400
+  "message" : "Bad Request"
+}
+```
+The API will return four error types when requests fail:
+```
+400: Bad Requst
+404: Not Found
+422: Unprocessed Entity
+500: Internal Server Error
 ```
 
 
