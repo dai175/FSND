@@ -1,3 +1,4 @@
+jose
 astroid==2.2.5
 Click==7.0
 ecdsa==0.13.2
